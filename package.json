@@ -6,8 +6,18 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "dnd-email-editor": "0.0.0-alpha.5.hot-fix.1",
+    "grapesjs": "^0.20.1",
+    "grapesjs-navbar": "^1.0.1",
+    "grapesjs-plugin-export": "^1.0.11",
+    "grapesjs-plugin-forms": "^2.0.5",
+    "grapesjs-preset-newsletter": "^0.2.21",
+    "grapesjs-preset-webpage": "^1.0.1",
     "react": "^18.2.0",
+    "react-beautiful-dnd": "^13.1.1",
     "react-dom": "^18.2.0",
+    "react-email-editor": "^1.6.1",
+    "react-email-editor-ff": "^1.4.61",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -34,5 +44,10 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.9",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   }
 }
