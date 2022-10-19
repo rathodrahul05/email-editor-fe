@@ -5,7 +5,7 @@ function Content(props) {
   const { contents, setContents } = props;
 
   const [toggle, setToggle] = useState(false);
-  const [img, setImg] = useState();
+  const [img, setImg] = useState(null);
   const [data, setData] = useState({
     name: "",
     email: "",
@@ -28,22 +28,20 @@ function Content(props) {
       })
     );
   };
-  const handleFile = (e,id) => {
-    if (e.target.files[0].type == "image/png") {
-      setImg(URL.createObjectURL(e.target.files[0]));
-    }
-    
+  const handleFile = (e, id) => {
+    setImg(URL.createObjectURL(e.target.files[0]));
   };
+ console.log('contents',contents.length)
 
   return (
     <>
       <div>
-        <Droppable droppableId="content">
+        <Droppable droppableId="content1">
           {(provided) => (
             <div
               ref={provided.innerRef}
               {...provided.droppableProps}
-              className="mx-10 w-96 h-96 border border-cyan-600"
+              className="mx-10 w-96 h-max border border-cyan-600"
             >
               {contents.length !== 0 ? (
                 contents.map((content, index) => {
@@ -60,21 +58,34 @@ function Content(props) {
                               ref={provided.innerRef}
                               {...provided.draggableProps}
                               {...provided.dragHandleProps}
-                              className="p-5  m-2 border-dashed border-2 border-cyan-400"
+                              className={`p-5  m-2 ${
+                                content.type != "file"
+                                  ? "border-dashed border-2"
+                                  : ""
+                              } border-red-400`}
                             >
-                              <input
-                                type={content.type}
-                                className="border border-cyan-900"
-                                placeholder={content.type}
-                                name={content.label}
-                                onChange={(e) => {
-                                  content.type != "file"
-                                    ? handleChange(e)
-                                    : handleFile(e,content.id);
-                                }}
-                                onBlur={(e) =>content.type!='file'&& handleBlur(e, content.id)}
+                              {content.type == "file" && img ? (
+                                <img src={img} alt="img" className="w-52" />
+                              ) : (
+                                <input
+                                  type={content.type}
+                                  className="border border-cyan-900"
+                                  placeholder={content.type}
+                                  name={content.label}
+                                  onChange={(e) => {
+                                    content.type != "file"
+                                      ? handleChange(e)
+                                      : handleFile(e, content.id);
+                                  }}
+                                  // onBlur={(e) =>
+                                  //   content.type != "file" &&
+                                  //   handleBlur(e, content.id)
+                                  // }
                                 />
-                                {content.type=='file'&&<img src={img} alt='file' width={150}/>}
+                              )}
+                              {/* {content.type == "file" && (
+                                <img src={img} alt="file" width={150} />
+                              )} */}
                             </div>
                           ) : (
                             <div
