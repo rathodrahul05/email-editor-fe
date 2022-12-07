@@ -9,7 +9,7 @@ function ImageContainer(props) {
       {propss ? (
         <img
         id="img"
-          src={propss.link}
+          src={propss.link?propss.link:propss.file}
           width={propss.width}
           height={propss.height}
           alt="img"

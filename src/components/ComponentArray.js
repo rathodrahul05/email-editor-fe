@@ -72,15 +72,7 @@ const compArray = [
         {props ? (
           <div dangerouslySetInnerHTML={{ __html: props }}></div>
         ) : (
-          <p>
-            Main content Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Nunc maximus, nulla ut commodo sagittis, sapien dui mattis
-            dui, non pulvinar lorem felis nec erat. In publishing and graphic
-            design, Lorem ipsum is a placeholder text commonly used to
-            demonstrate the visual form of a document or a typeface without
-            relying on meaningful content. Lorem ipsum may be used as a
-            placeholder before final copy is available.
-          </p>
+          "Main content Lorem ipsum dolor sit amet, consectetur adipiscing elit Nunc maximus, nulla ut commodo sagittis, sapien dui mattis dui, non pulvinar lorem felis nec erat. In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content. Lorem ipsum may be used as a placeholder before final copy is available"
         )}
       </div>
     ),
@@ -88,32 +80,7 @@ const compArray = [
   {
     id: "footer",
     component: (props = null) => <Footer props={props} />,
-    //  {
-
-    //   return (
-    //     <div id="footer" className="  bg-gray-500 p-5 mt-0 ">
-    //       <div className="flex justify-center text-xl ">
-    //         {props ? (
-    //           <div dangerouslySetInnerHTML={{ __html: props }}></div>
-    //         ) : (
-    //          <div>Follow Us On</div>
-    //         )}
-    //       </div>
-    //       <div className="flex justify-center space-x-5 mt-5">
-    //         <div className="flex justify-center">
-    //           <SiFacebook size={"25px"} />
-    //         </div>
-
-    //         <div className="flex justify-center">
-    //           <SiInstagram size={"25px"} />
-    //         </div>
-    //         <div className="flex justify-center">
-    //           <SiTwitter size={"25px"} />
-    //         </div>
-    //       </div>
-    //     </div>
-    //   );
-    // },
+    
   },
 ];
 export default compArray;

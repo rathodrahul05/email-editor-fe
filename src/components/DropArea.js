@@ -14,7 +14,11 @@ function DropArea(props) {
     tempContent,
     setTempContent,
     img,
-    setImg,editor,setEditor,obj,setObj
+    setImg,
+    editor,
+    setEditor,
+    obj,
+    setObj,
   } = props;
   console.log(contentsDropped);
 
@@ -39,25 +43,105 @@ function DropArea(props) {
   const toggleDrawer =
     (anchor, open, item = null) =>
     (event) => {
-      console.log(ref.current);
       uuidLcl.current = item?.uuid;
+      
 
-      console.log(item);
-      console.log(event.target.innerHTML);
-      // if(item?.id){
+     
+      if (item?.id == "nav") {
+        if (event.target.parentElement.nodeName == "UL") {
+         
+          let sibling = event.target.parentNode.firstChild;
+          let siblings = [];
+        
 
-      //    setElemCount(document.getElementById(item.id).children.length)
-      //   }
+          while (sibling) {
+            siblings.push(sibling.innerText);
+            sibling = sibling.nextSibling;
+          }
+          setImg({
+            ...img,
+            link: event.target.parentNode.parentNode.children[0]?.src,
+            width: event.target.parentNode.parentNode.children[0]?.width,
+            height: event.target.parentNode.parentNode.children[0]?.height,
+            text1: siblings[0],
+            text2: siblings[1],
+            text3: siblings[2],
+          });
+        } else if(event.target.nodeName=='IMG') {
+          console.log(event.target);
+          let sibling = event.target.parentNode.children[1].firstChild;
+          console.log(sibling)
+          let siblings = [];
+        
+
+          while (sibling) {
+            siblings.push(sibling.innerText);
+            sibling = sibling.nextSibling;
+          }
+          setImg({
+            ...img,
+            link: event.target.src,
+            width: event.target.width,
+            height: event.target.height,
+            text1: siblings[0],
+            text2: siblings[1],
+            text3: siblings[2],
+          });
+
+        }
+        else{
+          console.log(event.target.children[1]);
+          let sibling = event.target.children[1].firstChild;
+          console.log(sibling)
+          let siblings = [];
+        
+
+          while (sibling) {
+            siblings.push(sibling.innerText);
+            sibling = sibling.nextSibling;
+          }
+          setImg({
+            ...img,
+            link: event.target.children[0].src,
+            width: event.target.children[0].width,
+            height: event.target.children[0].height,
+            text1: siblings[0],
+            text2: siblings[1],
+            text3: siblings[2],
+          });
+         
+        }
+      }
+
       if (!open) {
-        // setImg(null)
         setIsEdit(false);
         setDrawerState({ ...drawerState, [anchor]: open });
         return;
       }
+
+      if (item?.id == "img") {
+        if (event.target.hasChildNodes()) {
+          console.log(event.target.children[0]?.src);
+          console.log(event.target.children[0]?.width);
+          setImg({
+            ...img,
+            link: event.target.children[0]?.src,
+            width: event.target.children[0]?.width,
+          });
+        } else {
+          console.log(event.target);
+          setImg({ ...img, link: event.target.src, width: event.target.width });
+        }
+      }
+      
+
+     
       setEState(event.target);
       const main = event.target.innerText;
       console.log(main);
+
       setText(main);
+      console.log(event.target.innerHTML);
       setTextHtml(event.target.innerHTML);
       setId(item?.id);
 
@@ -70,13 +154,9 @@ function DropArea(props) {
       setDrawerState({ ...drawerState, [anchor]: open });
     };
 
-  // const obj = {
-  // "abc-abc1-aas-smk-aks":{text:'',width:'',height:''}
-  //   'asd-rer-sdsd-asdad-adad': <p>heder</p>,
-  //   'fdf-dfd-dfdf-dfdfd-fdfd': <p>App bar</p>
-  // }
-
-
+  useEffect(() => {
+    console.log(eState);
+  }, [eState]);
   return (
     <>
       <Droppable droppableId="content">
@@ -88,7 +168,6 @@ function DropArea(props) {
           >
             {contentsDropped.length > 0 ? (
               contentsDropped.map((item, index) => {
-                
                 return (
                   <Draggable
                     key={index}

@@ -44,7 +44,9 @@ function TemporaryDrawer(props) {
     setImg,
     obj,
     setObj,
-    uuid,editor,setEditor
+    uuid,
+    editor,
+    setEditor,
   } = props;
   const [editorValue, setEditorValue] = useState(() =>
     RichTextEditor.createEmptyValue()
@@ -56,35 +58,19 @@ function TemporaryDrawer(props) {
 
   const [iconImg, setIconImg] = useState({
     link: "",
-   width:""
+    width: "",
   });
 
   const handleChange = (value) => {
-    // setEditorValue(() => value);
-    // document.getElementById(id).children[0].innerText=value
-    let count = 0;
-    ++count;
-
-    console.log(uuid);
     eState.innerHTML = value;
-    // if (id=='footer') {
-    //   const temp={...footer,text: eState.innerHTML}
-    //   console.log(temp)
 
-    // }
     setObj({ ...obj, [uuid]: eState.innerHTML });
-
-    var doc = new DOMParser().parseFromString(value, "text/html");
-    // eState.innerHTML = doc.firstChild.innerHTML;
 
     setText(value.toString());
     setText1(value);
-    setToggle(!toggle);
-    setEditor(editor.concat(obj[uuid]))
-    // setText(value.toString());
   };
   useEffect(() => {
-    console.log(obj[uuid])
+    console.log(obj[uuid]);
   }, [obj]);
   const divs = () => {
     let temp = [];
@@ -112,8 +98,7 @@ function TemporaryDrawer(props) {
   };
  
   const handleImgLink = (e) => {
-    
-
+    console.log(uuid);
     console.log(img);
     const temp = img;
     temp[e.target.name] = e.target.value;
@@ -121,7 +106,13 @@ function TemporaryDrawer(props) {
     // setObj({...obj,[uuid]:{...obj?.uuid,[e.target.name]:e.target.value}});
     setObj({ ...obj, [uuid]: temp });
     setImg({ ...img, [e.target.name]: e.target.value });
-    setEditor(editor.concat(obj[uuid]))
+   
+  };
+  const handleFile = (e) => {
+    const temp = img;
+    temp[e.target.name] = URL.createObjectURL(e.target.files[0]);
+    setObj({ ...obj, [uuid]: temp });
+    setImg({ ...img, [e.target.name]: URL.createObjectURL(e.target.files[0]) });
   };
   console.log(tempContent);
   const list = (anchor) => (
@@ -149,6 +140,8 @@ function TemporaryDrawer(props) {
               value={img.link}
               onChange={handleImgLink}
             />
+            <p>Or</p>
+            <input type={"file"} name="file" onChange={handleFile} />
             <TextField
               label="width"
               sx={{ width: "85%", marginTop: "10px" }}
@@ -156,33 +149,59 @@ function TemporaryDrawer(props) {
               value={img.width}
               onChange={handleImgLink}
             />
-
-            <TextField
-              label="height"
-              sx={{ width: "85%", marginTop: "10px" }}
-              name="height"
-              value={img.height}
-              onChange={handleImgLink}
-            />
           </div>
         )}
         {id == "nav" && (
           <>
-          <TextField
+            <TextField
               label="Image Url"
               sx={{ width: "85%", marginTop: "10px" }}
               name="link"
               value={img.link}
               onChange={handleImgLink}
             />
-          <TextField
-            label="height"
-            sx={{ width: "85%", marginTop: "10px" }}
-            name="height"
-            value={img.height}
-            onChange={handleImgLink}
+
+            <TextField
+              label="Text1"
+              sx={{ width: "85%", marginTop: "10px" }}
+              name="text1"
+              value={img.text1}
+              onChange={handleImgLink}
             />
-            </>
+            <TextField
+              label="Text2"
+              sx={{ width: "85%", marginTop: "10px" }}
+              name="text2"
+              value={img.text2}
+              onChange={handleImgLink}
+            />
+            <TextField
+              label="Text3"
+              sx={{ width: "85%", marginTop: "10px" }}
+              name="text3"
+              value={img.text3}
+              onChange={handleImgLink}
+            />
+          </>
+        )}
+        {id == "largeHead" && (
+          <>
+            <TextField
+              label="Header"
+              sx={{ width: "85%", marginTop: "10px" }}
+              name="largeHead"
+              value={img.largeHead}
+              onChange={handleImgLink}
+            />
+
+            <TextField
+              label="Button Text"
+              sx={{ width: "85%", marginTop: "10px" }}
+              name="buttonText"
+              value={img.buttonText}
+              onChange={handleImgLink}
+            />
+          </>
         )}
         {/* {!isEdit && id == "footer" ? (
           <>
@@ -214,7 +233,7 @@ function TemporaryDrawer(props) {
             />
           )
         )} */}
-        {!isEdit && id != "img" &&id!='nav' ? (
+        {!isEdit && id != "img" && id != "nav" && id != "largeHead" ? (
           <TextField
             multiline
             rows={id == "img" ? 1 : 4}
@@ -225,7 +244,9 @@ function TemporaryDrawer(props) {
             }}
           />
         ) : (
-          id != "img"&&id!='nav' && (
+          id != "img" &&
+          id != "nav" &&
+          id != "largeHead" && (
             <ReactQuill
               defaultValue={textHtml}
               modules={modules}
@@ -234,6 +255,10 @@ function TemporaryDrawer(props) {
             />
           )
         )}
+
+        {/* {eState?.children&&Array.from(eState?.children).map(()=>{
+          return <TextField/>
+        })} */}
       </div>
       <Divider />
       <List></List>

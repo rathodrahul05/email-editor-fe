@@ -19,9 +19,9 @@ function NavBar(props) {
         alt="logo"
       />
       <ul className="flex space-x-5">
-        <li>Home</li>
-        <li>About Us</li>
-        <li>Contact</li>
+        <li>{props?.props?.text1?props?.props?.text1:'Home'}</li>
+        <li>{props?.props?.text2?props?.props?.text2:'About Us'}</li>
+        <li>{props?.props?.text3?props?.props?.text3:'Contact'}</li>
       </ul>
     </div>
   );
